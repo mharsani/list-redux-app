@@ -8,11 +8,10 @@ import {ADD_TODO,TOGGLE_TODO} from './actions'
             id: action.payload.id,
             text: action.payload.text,
             completed: false
-
         })
         case TOGGLE_TODO :
         return state.map((x) => {
-            if(x.id !== action.payload.id) {
+            if(x.id !== action.payload.id) {  
                 return x
             }
             return {

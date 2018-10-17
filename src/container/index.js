@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { ADD_TODO } from '../redux-flow/reducers/todos-list/actions';
-import v4 from 'uuid-v4'
+import { addList, toggleList } from '../redux-flow/reducers/todos-list/action-creators'
 
-const AppContainer = ({handleSubmite, todos}) => (
+
+const AppContainer = ({handleSubmite, todos, handleToggleList}) => (
     <div className="container">
         <div className="container">
         <form onSubmit={handleSubmite}>
@@ -14,8 +14,11 @@ const AppContainer = ({handleSubmite, todos}) => (
         </form>
         <div className="list">
         <ul>
-            {todos.map((element, index) => (
-                <li key={index}>{element.text}</li>
+            {todos.map((element) => (
+                <li key={element.id}
+                 style ={{textDecoration: element.completed ? 'line-through': 'none'}}
+                 onClick={handleToggleList(element.id)}
+                 >{element.text}</li>
             ))}
        </ul>
     </div>
@@ -29,13 +32,12 @@ const mapStateToProps = (state) => ({
 const mapDispacthToProps = (dispacth) => ({
     handleSubmite: (e) => {
         e.preventDefault()
-        dispacth({
-            type: ADD_TODO,
-            payload: {
-                id: v4(),
-                text: e.target.inputlist.value
-            }
-        })
+        dispacth(addList(e.target.inputlist.value))
+        e.target.inputlist.value = ''
+    },
+
+    handleToggleList: (id) => (e) =>{
+        dispacth(toggleList(id))
     }
 })
 

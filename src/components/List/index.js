@@ -1,21 +1,28 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import { toggleList } from '../../redux-flow/reducers/todos-list/action-creators'
 
-const List = () => (
-   <div className="list">
-       <ul>
-           <li>
-              TEXT-1 
-           </li>
-           <li>
-              TEXT-2
-           </li>
-           <li>
-              TEXT-3
-           </li>
-           <li>
-              TEXT-4 
-           </li>
-       </ul>
-    </div>
+const List = ({todos, handleToggleList }) => (
+    <div className="list">
+    <ul>
+        {todos.map((element) => (
+            <li key={element.id}
+             style ={{textDecoration: element.completed ? 'line-through': 'none'}}
+             onClick={handleToggleList(element.id)}
+             >{element.text}</li>
+        ))}
+   </ul>
+</div>
 )
-export default List
+
+const mapStateToProps = (state) => ({
+    todos: state.todos
+})
+
+const mapDispacthToProps =  (dispacth) => ({
+    handleToggleList: (e) => (id) => {
+        dispacth(toggleList(id))
+    }
+}) 
+
+export default connect(mapStateToProps, mapDispacthToProps)(List)

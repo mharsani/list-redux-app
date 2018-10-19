@@ -3,6 +3,6 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
         return action.payload.filter
     }
     return state
-} 
+}
 
 export default visibilityFilter

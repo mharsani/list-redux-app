@@ -20,7 +20,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispacthToProps =  (dispacth) => ({
-    handleToggleList: (e) => (id) => {
+    handleToggleList: (id) => (e) => {
+        console.log(id)
         dispacth(toggleList(id))
     }
 }) 
